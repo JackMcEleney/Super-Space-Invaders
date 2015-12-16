@@ -12,7 +12,7 @@
 #include "cSoundMgr.h"
 #include "cFontMgr.h"
 #include "cSprite.h"
-#include "asteroidsGame.h"
+#include "invadersGame.h"
 #include "cButton.h"
 
 int WINAPI WinMain(HINSTANCE hInstance,
@@ -95,7 +95,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
 	// Creates a function to produce a message, and an array of the messages to produce
 	string outputMsg;
 	string strMsg[] = { "Score:", "Welcome to Super Space Invaders", "To play, use the left and right arrow keys to move,", "and the space bar to shoot", 
-		"Congratulations! You have won!!", "You have lost.", "Press Space to play again or Q to quit", "Press Space to play. Press Q to quit at any time" };
+		"Congratulations! You have won!!", "You have lost.", "Press Enter to play again or Q to quit", "Press Enter to play. Press Q to quit at any time" };
 	
 
 	// load game sounds
@@ -122,10 +122,10 @@ int WINAPI WinMain(HINSTANCE hInstance,
 	// Loop creates an enemy for each iteration. x and y variables are provided so that they spawn in the correct place
 		float vecX = 200.0f;
 		float vecY = 50.0f;
-		for (int astro = 0; astro < 10; astro++)
+		for (int invado = 0; invado < 10; invado++)
 		{
-			theAsteroids.push_back(new cAsteroid);
-			theAsteroids[astro]->setSpritePos(glm::vec2(vecX, vecY));
+			theInvaders.push_back(new cInvader);
+			theInvaders[invado]->setSpritePos(glm::vec2(vecX, vecY));
 			vecY = vecY + 30.0f;
 			if (vecY == 530.0f)
 			{
@@ -139,17 +139,17 @@ int WINAPI WinMain(HINSTANCE hInstance,
 				vecY = vecY + 60.0f;
 			}
 			*/
-			int randAsteroid = rand() % 3;
-			theAsteroids[astro]->setTexture(theGameTextures[randAsteroid]->getTexture());
-			theAsteroids[astro]->setTextureDimensions(theGameTextures[randAsteroid]->getTWidth(), theGameTextures[randAsteroid]->getTHeight());
-			theAsteroids[astro]->setAsteroidVelocity(glm::vec2(glm::vec2(0.0f, 0.0f)));
-			theAsteroids[astro]->setSpriteCentre();
-			theAsteroids[astro]->setActive(true);
-			theAsteroids[astro]->setMdlRadius();
-			theAsteroids[astro]->getSpritePos();
+			int randInvader = rand() % 3;
+			theInvaders[invado]->setTexture(theGameTextures[randInvader]->getTexture());
+			theInvaders[invado]->setTextureDimensions(theGameTextures[randInvader]->getTWidth(), theGameTextures[randInvader]->getTHeight());
+			theInvaders[invado]->setInvaderVelocity(glm::vec2(glm::vec2(0.0f, 0.0f)));
+			theInvaders[invado]->setSpriteCentre();
+			theInvaders[invado]->setActive(true);
+			theInvaders[invado]->setMdlRadius();
+			theInvaders[invado]->getSpritePos();
 			if (iScore == 10)
 			{
-				astro = 0;
+				invado = 0;
 			}
 		}
 
@@ -202,8 +202,8 @@ int WINAPI WinMain(HINSTANCE hInstance,
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		
-		// initializes the asteroidIterator outside the switch
-		vector<cAsteroid*>::iterator asteroidIterator = theAsteroids.begin();
+		// initializes the InvaderIterator outside the switch
+		vector<cInvader*>::iterator InvaderIterator = theInvaders.begin();
 		// creates a switch based on game state
 		switch (theGameState)
 			
@@ -214,9 +214,9 @@ int WINAPI WinMain(HINSTANCE hInstance,
 			spriteStartBkgd.render();
 			//prints messages to the screen telling the player how to play and how to start the game
 			outputMsg = strMsg[1];
-			theFontMgr->getFont("Space")->printText(outputMsg.c_str(), FTPoint(200, 100, 0.0f));
+			theFontMgr->getFont("Space")->printText(outputMsg.c_str(), FTPoint(200, 30, 0.0f));
 			outputMsg = strMsg[2];
-			theFontMgr->getFont("Space")->printText(outputMsg.c_str(), FTPoint(50, 200, 0.0f));
+			theFontMgr->getFont("Space")->printText(outputMsg.c_str(), FTPoint(50, 190, 0.0f));
 			outputMsg = strMsg[3];
 			theFontMgr->getFont("Space")->printText(outputMsg.c_str(), FTPoint(250, 300, 0.0f));
 			outputMsg = strMsg[7];
@@ -225,7 +225,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
 			//makes sure the players score is at 0 on the main menu
 			iScore = 0;
 			//if the player presses space, start the game
-			if (theInputMgr->isKeyDown(VK_SPACE))
+			if (theInputMgr->isKeyDown(VK_RETURN))
 			{
 				theGameState = PLAYING;
 			}
@@ -246,20 +246,20 @@ int WINAPI WinMain(HINSTANCE hInstance,
 			theFontMgr->getFont("Space")->printText(outputMsg.c_str(), FTPoint(435, 20, 0.0f));
 			theFontMgr->getFont("Space")->printText(score.c_str(), FTPoint(565, 20, 0.0f));
 			//if there's still enemies in the enemy array
-			if (asteroidIterator != theAsteroids.end())
+			if (InvaderIterator != theInvaders.end())
 			{
 				//if an enemy got destroyed
-				if ((*asteroidIterator)->isActive() == false)
+				if ((*InvaderIterator)->isActive() == false)
 				{
 					//increase score erase enemy
 					++iScore;
-					asteroidIterator = theAsteroids.erase(asteroidIterator);
+					InvaderIterator = theInvaders.erase(InvaderIterator);
 				}
 				else
 				{
-					(*asteroidIterator)->update(elapsedTime);
-					(*asteroidIterator)->render();
-					++asteroidIterator;
+					(*InvaderIterator)->update(elapsedTime);
+					(*InvaderIterator)->render();
+					++InvaderIterator;
 				}
 				//if the players score is 10 (killed 10 enemies)
 				if (iScore == 10)
@@ -291,7 +291,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
 			if (iScore == 10)
 			{
 				outputMsg = strMsg[4];
-				theFontMgr->getFont("Space")->printText(outputMsg.c_str(), FTPoint(100, 200, 0.0f));
+				theFontMgr->getFont("Space")->printText(outputMsg.c_str(), FTPoint(250, 200, 0.0f));
 			}
 			//if players score is less than 10, present them with text saying they lost (can't be achieved currently)
 			else
@@ -304,9 +304,9 @@ int WINAPI WinMain(HINSTANCE hInstance,
 			theFontMgr->getFont("Space")->printText(outputMsg.c_str(), FTPoint(435, 70, 0.0f));
 			theFontMgr->getFont("Space")->printText(score.c_str(), FTPoint(565, 70, 0.0f));
 			outputMsg = strMsg[6];
-			theFontMgr->getFont("Space")->printText(outputMsg.c_str(), FTPoint(50, 500, 0.0f));
+			theFontMgr->getFont("Space")->printText(outputMsg.c_str(), FTPoint(175, 500, 0.0f));
 			//space to go back to menu
-			if (theInputMgr->isKeyDown(VK_SPACE))
+			if (theInputMgr->isKeyDown(VK_RETURN))
 			{
 				theGameState = MENU;
 			}

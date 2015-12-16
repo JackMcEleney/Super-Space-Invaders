@@ -1,11 +1,11 @@
 /*
 ==================================================================================
-asteroidsGame.cpp
+InvadersGame.cpp
 ==================================================================================
 */
 
-#include "asteroidsGame.h"
+#include "invadersGame.h"
 
 vector<cTexture*> theGameTextures;
-vector<cAsteroid*> theAsteroids;
+vector<cInvader*> theInvaders;
 vector<cBullet*> theRocketBullets;

@@ -96,12 +96,12 @@ void cRocket::update(float deltaTime)
 	for (vector<cBullet*>::iterator bulletIterartor = theRocketBullets.begin(); bulletIterartor != theRocketBullets.end(); ++bulletIterartor)
 	{
 		(*bulletIterartor)->update(deltaTime);
-		for (vector<cAsteroid*>::iterator asteroidIterator = theAsteroids.begin(); asteroidIterator != theAsteroids.end(); ++asteroidIterator)
+		for (vector<cInvader*>::iterator InvaderIterator = theInvaders.begin(); InvaderIterator != theInvaders.end(); ++InvaderIterator)
 		{
-			if ((*asteroidIterator)->collidedWith((*asteroidIterator)->getBoundingRect(), (*bulletIterartor)->getBoundingRect()))
+			if ((*InvaderIterator)->collidedWith((*InvaderIterator)->getBoundingRect(), (*bulletIterartor)->getBoundingRect()))
 			{
-				// if a collision set the bullet and asteroid to false
-				(*asteroidIterator)->setActive(false);
+				// if a collision set the bullet and Invader to false
+				(*InvaderIterator)->setActive(false);
 				(*bulletIterartor)->setActive(false);
 			}
 		}

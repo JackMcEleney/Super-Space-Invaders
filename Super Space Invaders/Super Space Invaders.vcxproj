@@ -110,8 +110,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="asteroidsGame.cpp" />
-    <ClCompile Include="cAsteroid.cpp" />
+    <ClCompile Include="invadersGame.cpp" />
+    <ClCompile Include="cInvader.cpp" />
     <ClCompile Include="cBkGround.cpp" />
     <ClCompile Include="cBullet.cpp" />
     <ClCompile Include="cButton.cpp" />
@@ -128,8 +128,8 @@
     <ClCompile Include="windowOGL.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="asteroidsGame.h" />
-    <ClInclude Include="cAsteroid.h" />
+    <ClInclude Include="invadersGame.h" />
+    <ClInclude Include="cInvader.h" />
     <ClInclude Include="cBkGround.h" />
     <ClInclude Include="cBullet.h" />
     <ClInclude Include="cButton.h" />

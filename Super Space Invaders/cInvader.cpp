@@ -1,12 +1,12 @@
 /*
 =================
-cAsteroid.cpp
+cInvader.cpp
 - Header file for class definition - IMPLEMENTATION
 =================
 */
-#include "cAsteroid.h"
+#include "cInvader.h"
 
-void cAsteroid::render()
+void cInvader::render()
 {
 
 
@@ -41,7 +41,7 @@ Update the sprite position
 =================================================================
 */
 
-void cAsteroid::update(float deltaTime)
+void cInvader::update(float deltaTime)
 {	
 	//sets basic hitbox detection
 	setBoundingRect(&boundingRect);
@@ -83,28 +83,28 @@ void cAsteroid::update(float deltaTime)
 }
 /*
 =================================================================
-  Sets the velocity for the Asteroid
+  Sets the velocity for the Invader
 =================================================================
 */
-void cAsteroid::setAsteroidVelocity(glm::vec2 AsteroidVel)
+void cInvader::setInvaderVelocity(glm::vec2 InvaderVel)
 {
-	asteroidVelocity = AsteroidVel;
+	InvaderVelocity = InvaderVel;
 }
 /*
 =================================================================
-  Gets the Asteroid velocity
+  Gets the Invader velocity
 =================================================================
 */
-glm::vec2 cAsteroid::getAsteroidVelocity()
+glm::vec2 cInvader::getInvaderVelocity()
 {
-	return asteroidVelocity;
+	return InvaderVelocity;
 }
 /*
 ==========================================================================
 Use this method to show the collision box.
 ==========================================================================
 */
-void cAsteroid::renderCollisionBox()
+void cInvader::renderCollisionBox()
 {
 	glPushMatrix();
 
